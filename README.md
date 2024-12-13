@@ -51,7 +51,6 @@ View(q4_2019)
 View(q1_2020)
 ```
 
-## Processing the data
 The preliminary check revealed files of 2019 had different headers than that of 2020 for the same data. This was the time for our first data consolidation. 
 1. I renamed headers in the four quarters of 2019 files to match the headers in the file of 2020.
 ```r
@@ -126,3 +125,4 @@ all_trips <- bind_rows(q1_2019,q2_2019,q3_2019,q4_2019,q1_2020)
 
 all_trips <- all_trips %>% select(-c(tripduration,gender,birthyear,`Member Gender`,`05 - Member Details Member Birthday Year`,start_lat,start_lng,end_lat,end_lng))
 ```
+## Processing the data
