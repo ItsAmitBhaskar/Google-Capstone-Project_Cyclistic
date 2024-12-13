@@ -106,7 +106,7 @@ The preliminary check revealed files of 2019 had different headers than that of 
 (q2_2019 <- rename(q2_2019
                    ,tripduration = `01 - Rental Details Duration In Seconds Uncapped`))
 ```
-2. Inspecting the data types of columns revealed another challenge. Till 2019, the ride_id and rideable_type used to be in numeric codes. Since these are identifiers, I needed to convert them to character datatype.
+2. Inspecting the data types of columns revealed that ride_id and rideable_type were in numeric datatypes in 2019 datasets. Since we will eventually be merging all the datasets, it is essential to convert them to character datatype so that they can stack correctly.
 ```r
 #changing data types of ride_id and rideable_type from num to character
 q1_2019 <-  mutate(q1_2019, ride_id = as.character(ride_id)
@@ -117,4 +117,12 @@ q3_2019 <-  mutate(q3_2019, ride_id = as.character(ride_id)
                    ,rideable_type = as.character(rideable_type)) 
 q4_2019 <-  mutate(q4_2019, ride_id = as.character(ride_id)
                    ,rideable_type = as.character(rideable_type))
+```
+
+3. Merged the 5 datasets into one and removed lat, long, birthyear, and gender fields as this data was dropped beginning in 2020
+```r
+#Consolidated Dataset
+all_trips <- bind_rows(q1_2019,q2_2019,q3_2019,q4_2019,q1_2020)
+
+all_trips <- all_trips %>% select(-c(tripduration,gender,birthyear,`Member Gender`,`05 - Member Details Member Birthday Year`,start_lat,start_lng,end_lat,end_lng))
 ```
