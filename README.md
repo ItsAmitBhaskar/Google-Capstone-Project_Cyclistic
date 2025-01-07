@@ -1,29 +1,18 @@
 # TheCyclistProject
-Welcome to the Cyclistic bike-share analysis case study! This was my first unguided data project and also the first time I used GitHub. This project formed a part of final course work for Google's Data Analysis Professional Certificate on Coursera. This work gave me an opportunity to apply the key techniques learned throughout the course into some real world data with real set of challenges.
 
-## Project Background
-For this project I played the role of a junior data analyst at a bike share company called Cyclistic. The company had determined that annual membership holders were more profitable than casual riders. They wanted to launch a marketing campaign targeting casual riders in order to persuade more of them to become annual members. As a part of this, my work was to analyse the differences between how casual riders and annual members used the different types of bikes available and to provide key insights that might determine their marketing strategy.
+## About Me
+Welcome to the Cyclistic bike-share analysis case study! My name is Amit Bhaskar. I am from India. At the time of completing this project (Dec 2024) I am working as an operations manager in an ed tech company. I have been self teaching myself the core principles, techniques and tech stack of data analysis for 4 months now and this project officially is a capstone project of Google's data analysis professional certificate on Coursera.
 
-## My Approach
-I adopted the six step data analysis process that I learned in the course. 
+## Business objectives
+As part of this project, I have to analyse a real dataset of bike rentals and help the company find some insights on bike usage to help drive a sound marketing strategy. The company's overarching goal is to convert their casual riders (those who take a single-ride-pass or daily pass) into subscribed members. The management believes that this is the way-to-go to achieve long term stability and success. To help actualise this goal, my task is to analyse the available dataset and figure out how the casual riders use the bikes differently than members.
 
-- **Ask**: Identifying the major business questions
-- **Prepare**: Collecting the data and identifying how it’s organized.
-- **Process**: Stage of performing the cleaning checks before diving into analysis
-- **Analyze**: Organizing and formatting the data, aggregating, performing calculations and identifying trends and relationships.
-- **Share**: Presenting the findings with effective visualization.
-- **Act**: Sharing the final conclusion and the recommendations.
+## About the data
+The data used for this project is a real data set of a company called Divvybikes based out of the city of Chicago. The dataset could be found a
 
-As for the tool of analysis, I used R programming language for cleaning, manipulation and vizualisations. 
 
-## What was the ASK? 
-I began with an intention to explore the data along the lines of a few broad questions:
-1. How is the usage by casual riders and annual members on different days of the week? Is there any significant difference?
-2. How is the usage throughout the year? Do particular months show increased usage by one group over the other?
-3. How the usage differs by different times of day?
-4. What are geographical hotspots of usage? How the two groups pan out geographically?
-5. Are particular start stations more popular with one group over the other?
-6. Of the different types of bikes available for use, do annual members use a different type of bike to casual members?
+
+
+
 
 ## Preparation
 The data set was made available online by [Motivate International Inc.](https://divvy-tripdata.s3.amazonaws.com/index.html) under the [license](https://divvybikes.com/data-license-agreement). For the purpose of my analysis I used the csv files containing quarterly data for the four quarters of 2019 and the first quarter of 2020. The data was organised into a set of 5 csv files one for each quarter from Jan 2019 to March 2020. To prepare the data for analysis I read the files in R and did a basic inspection of the datasets.
