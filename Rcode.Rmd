@@ -1,1 +1,31 @@
+---
+title: "Cyclist_Project"
+author: "Amit Bhaskar"
+date: "2025-01-01"
+output: html_document
+---
 
+## Introduction
+
+##Business Objective
+
+##Data
+
+```{r}
+install.packages("tidyverse")
+library("tidyverse")
+library(lubridate)
+
+#Reading the dataset CSVs
+Jan<- read_csv("C:/Users/Tnluser/Desktop/Cyclist Project/202401-divvy-tripdata.csv")
+Feb<- read_csv("C:/Users/Tnluser/Desktop/Cyclist Project/202402-divvy-tripdata.csv")
+Mar<- read_csv("C:/Users/Tnluser/Desktop/Cyclist Project/202403-divvy-tripdata.csv")
+Apr<- read_csv("C:/Users/Tnluser/Desktop/Cyclist Project/202404-divvy-tripdata.csv")
+May<- read_csv("C:/Users/Tnluser/Desktop/Cyclist Project/202405-divvy-tripdata.csv")
+Jun<- read_csv("C:/Users/Tnluser/Desktop/Cyclist Project/202406-divvy-tripdata.csv")
+Jul<- read_csv("C:/Users/Tnluser/Desktop/Cyclist Project/202407-divvy-tripdata.csv")
+Aug<- read_csv("C:/Users/Tnluser/Desktop/Cyclist Project/202408-divvy-tripdata.csv")
+Sep<- read_csv("C:/Users/Tnluser/Desktop/Cyclist Project/202409-divvy-tripdata.csv")
+Oct<- read_csv("C:/Users/Tnluser/Desktop/Cyclist Project/202410-divvy-tripdata.csv")
+Nov<- read_csv("C:/Users/Tnluser/Desktop/Cyclist Project/202411-divvy-tripdata.csv")
+```
