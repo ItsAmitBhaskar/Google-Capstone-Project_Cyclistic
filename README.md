@@ -11,11 +11,10 @@ Customers who purchase single-ride or full-day passes are referred to as casual 
 The company's overarching goal is to convert their casual riders into annual members. The management believes that this is the way-forward to achieve long term stability and success. To help actualise this goal, my task is to analyse the company's recent rental record and figure out how the casual riders use the bikes differently than members. The marketing team can then use these insights to tailor out sound marketing strategies.
 
 ## About the data
-The data used for this project is a real data set of a company called Divvybikes based out of the city of Chicago. The dataset could be found a
-The data set was made available online by [Motivate International Inc.](https://divvy-tripdata.s3.amazonaws.com/index.html) under the [license](https://divvybikes.com/data-license-agreement). For the purpose of my analysis I used the csv files containing quarterly data for the four quarters of 2019 and the first quarter of 2020. The data was organised into a set of 5 csv files one for each quarter from Jan 2019 to March 2020. To prepare the data for analysis I read the files in R and did a basic inspection of the datasets.
+The data used for this project was made available online by [Motivate International Inc.](https://divvy-tripdata.s3.amazonaws.com/index.html) under the [license](https://divvybikes.com/data-license-agreement). The data is provided on a first-party basis indicating a high level of integrity. I have used the latest ride data available. It consists of 11 csv files containing ride data for each month from January 2024 to November 2024 and comprises of approximately 5.6 million data points.
 
 ## Tool used
-I have done the necessary ETL, analysis and visualisations in R using R Studio. Both pragmatic and personal reason informed this choice. Prgamatic reason being the sheer size of the dataset. With each sheet having anywhere between 400-800 thousand records, I estimated my final dataset to have almost 4-5 million rows (56,82,196 rows as it turned out in real.) Personal reason being I wanted to enforce the concepts I learned in the course which will enable me to deal with bulky datasets in future too.
+I have done the necessary ETL, analysis and visualisations in R using R Studio. Both pragmatic and personal reason informed this choice. Prgamatic reason being the sheer size of the dataset. With each sheet having anywhere between 400-800 thousand records, I estimated my final dataset to have almost 4-5 million rows. Personal reason being I wanted to enforce the concepts I learned in the course which will enable me to deal with bulky datasets in future too.
 
 ## An outline of my approach
 - Load individual sheets in R studio and ensure data consistency in all sheets.
@@ -113,4 +112,19 @@ Trips2024 <- Trips2024 %>%
   mutate(duration = round(as.numeric(difftime(ended_at, started_at, units = "mins")), 1))
 ```
 
-
+After these transformations at this stage, Trips2024 had the following structure:
+|S.No|Column_Name|Datatype|
+|-|------------|-------|
+|1|ride_id|character|
+|2|rideable_type|character|
+|3|started_at|datetime|
+|4|ended_at|datetime|
+|5|start_station_name|character|
+|6|start_station_id|character|
+|7|end_station_name|character|
+|8|end_station_id|character|
+|9|start_lat|double|
+|10|start_lng|double|
+|11|end_lat|double|
+|12|end_lng|double|
+|13|member_casual|character|
