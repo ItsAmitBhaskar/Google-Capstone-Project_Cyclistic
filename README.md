@@ -116,15 +116,145 @@ After these transformations at this stage, Trips2024 had the following structure
 |S.No|Column_Name|Datatype|
 |-|------------|-------|
 |1|ride_id|character|
-|2|rideable_type|character|
+|2|bike_type|character|
 |3|started_at|datetime|
 |4|ended_at|datetime|
 |5|start_station_name|character|
 |6|start_station_id|character|
 |7|end_station_name|character|
 |8|end_station_id|character|
-|9|start_lat|double|
-|10|start_lng|double|
-|11|end_lat|double|
-|12|end_lng|double|
-|13|member_casual|character|
+|9|customer_type|character|
+|10|day_of_ride|ordered factor with 7 levels|
+|11|month|ordered factor with 12 levels|
+|12|duration|double|
+
+## Phase 3: Exploring usage patters by customer types across time 
+
+1. First I compared for the overall timeframe of 11 months in 2024
+```{r}
+# Prepare data
+ride_share <- Trips2024 %>%
+  group_by(customer_type) %>%
+  summarise(total_rides = n()) %>%
+  mutate(percentage = total_rides / sum(total_rides) * 100)
+
+# Calculate total rides in 2024
+total_rides_2024 <- sum(ride_share$total_rides)
+
+# Create the pie chart
+ggplot(ride_share, aes(x = "", y = percentage, fill = customer_type)) +
+geom_bar(stat = "identity", width = 1, color = "white") +
+coord_polar(theta = "y") +
+labs(title = "Percentage Share of Casuals and Members in 2024 Rides", x = NULL, y = NULL) +
+theme_void() +
+theme(legend.title = element_blank())+
+geom_text(aes(label = paste0( total_rides, "\n",
+          round(percentage, 1), "%")),  # Add ride count and percentage labels
+          position = position_stack(vjust = 0.5), size = 5, color = "white")+
+  annotate("text", x = 1, y = 0.5, 
+           label = paste("Total Rides:", total_rides_2024), 
+           hjust = 0.5, vjust = 0, 
+           size = 4, color = "black")
+```
+2. Usage pattern across months
+```{r}
+   # Prepare the data: count rides by customer type and month
+rides_by_month <- Trips2024 %>%
+  group_by(customer_type, month) %>%
+  summarise(no_of_rides = n(), .groups = "drop")  # Avoids grouping warning
+
+# Create the plot
+ggplot(rides_by_month, aes(x = factor(month), y = no_of_rides, fill = customer_type)) +
+  geom_bar(stat = "identity", position = "dodge",width = 0.7  ) +
+  labs(title = "Number of Rides by Customer Type Across Months",
+       x = "Month", y = "Number of Rides") +
+  scale_x_discrete(labels = month.abb) + # Use scale_x_discrete() for months
+  scale_y_continuous(labels = function(x) format(x, big.mark = ",", scientific = FALSE)) +
+  theme_minimal() +
+  theme(legend.title = element_blank())  # Removes legend title
+```
+   
+3. Usage pattern across weekdays
+```{r}
+# Prepare the data: count rides by customer type and weekday
+rides_by_weekday <- Trips2024 %>%
+  group_by(customer_type, day_of_ride) %>%
+  summarise(no_of_rides = n(), .groups = "drop")  # Avoids grouping warning
+
+# Create the plot
+ggplot(rides_by_weekday, aes(x = factor(day_of_ride, levels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")),
+                             y = no_of_rides, fill = customer_type)) +
+  geom_bar(stat = "identity", position = "dodge", width = 0.7) +  # Decrease width for more space between bars
+  labs(title = "Number of Rides by Customer Type Across Weekdays",
+       x = "Weekday", y = "Number of Rides") +
+  scale_x_discrete(labels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")) +  # Abbreviated weekday names
+  scale_y_continuous(labels = function(x) format(x, big.mark = ",", scientific = FALSE)) +  # Format y-axis labels as commas
+  theme_minimal() +
+  theme(legend.title = element_blank())+  # Removes legend title
+  geom_text(aes(label = no_of_rides), position = position_dodge(width = 0.7), vjust = -0.3, size = 2.9)  # Show number above bars
+```
+4. Avg. ride duration across weekdays
+```{r}
+# Prepare the data: calculate average duration by customer type and weekday
+avg_duration_by_weekday <- Trips2024 %>%
+  group_by(customer_type, day_of_ride) %>%
+  summarise(avg_duration = round(mean(duration), 1), .groups = "drop")  # Calculate average duration and round to 1 decimal place
+
+# Create the plot
+ggplot(avg_duration_by_weekday, aes(x = factor(day_of_ride, levels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")),
+                                    y = avg_duration, fill = customer_type)) +
+  geom_bar(stat = "identity", position = "dodge", width = 0.7) +  # Bar chart with dodged bars
+  labs(title = "Average Duration of Rides by Customer Type Across Weekdays",
+       x = "Weekday", y = "Average Duration (minutes)") +
+  scale_x_discrete(labels = c("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")) +  # Abbreviated weekday names
+  scale_y_continuous(labels = function(x) format(x, big.mark = ",", scientific = FALSE)) +  # Format y-axis labels as commas
+  theme_minimal() +
+  theme(legend.title = element_blank()) +  # Removes legend title
+  geom_text(aes(label = avg_duration), position = position_dodge(width = 0.7), vjust = -0.3, size = 3)  # Show average duration above bars
+
+```
+5. Usage across hours in a day
+```{r}
+   # Ensure 'started_at' is in the correct datetime format
+Trips2024 <- Trips2024 %>%
+  mutate(started_at = as.POSIXct(started_at))  # If not already in POSIXct format
+  # Extract the hour of the day from 'started_at'
+Trips2024 <- Trips2024 %>%
+  mutate(hour_of_day = format(started_at, "%H"))
+
+# Group by 'customer_type' and 'hour_of_day', then count the number of rides
+ride_count_by_time <- Trips2024 %>%
+  group_by(customer_type, hour_of_day) %>%
+  summarise(ride_count = n(), .groups = 'drop')
+
+# Plot the line graph
+ggplot(ride_count_by_time, aes(x = as.numeric(hour_of_day), y = ride_count, color = customer_type)) +
+  geom_line() +
+  labs(
+    title = "Rides Start Time Across Time of Day",
+    x = "Hour of Day",
+    y = "Number of Rides",
+    color = "Customer Type"
+  ) +
+  scale_x_continuous(breaks = seq(0, 23, by = 2)) + 
+  scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +  # Prevent scientific notation on y-axis
+  theme_minimal()
+```
+6. Number of rentals by bike type
+```{r}
+   ggplot(data = Trips2024, aes(x = bike_type, fill = customer_type)) +
+  geom_bar(position = "dodge", stat = "count") +
+  geom_text(
+    stat = "count",
+    aes(label = after_stat(count)),
+    position = position_dodge(width = 0.9),
+    vjust = -0.5
+  ) +
+  labs(
+    title = "Number of Rentals by Members and Casuals by Bike Type",
+    x = "Bike Type",
+    y = "Number of Rentals",
+    fill = "Customer Type"
+  ) +
+  theme_minimal()
+```
