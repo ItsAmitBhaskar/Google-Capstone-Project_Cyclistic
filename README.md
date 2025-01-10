@@ -156,6 +156,8 @@ geom_text(aes(label = paste0( total_rides, "\n",
            hjust = 0.5, vjust = 0, 
            size = 4, color = "black")
 ```
+![Visual 1](https://github.com/ItsAmitBhaskar/TheCyclistProject/blob/main/Plots/Rentals%20overall.jpg)
+
 2. Usage pattern across months
 ```{r}
    # Prepare the data: count rides by customer type and month
