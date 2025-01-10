@@ -175,7 +175,8 @@ ggplot(rides_by_month, aes(x = factor(month), y = no_of_rides, fill = customer_t
   theme_minimal() +
   theme(legend.title = element_blank())  # Removes legend title
 ```
-   
+![Visual 2](https://github.com/ItsAmitBhaskar/TheCyclistProject/blob/main/Plots/Rentals%20by%20months.jpg)
+
 3. Usage pattern across weekdays
 ```{r}
 # Prepare the data: count rides by customer type and weekday
@@ -195,6 +196,8 @@ ggplot(rides_by_weekday, aes(x = factor(day_of_ride, levels = c("Mon", "Tue", "W
   theme(legend.title = element_blank())+  # Removes legend title
   geom_text(aes(label = no_of_rides), position = position_dodge(width = 0.7), vjust = -0.3, size = 2.9)  # Show number above bars
 ```
+![Visual 3](https://github.com/ItsAmitBhaskar/TheCyclistProject/blob/main/Plots/Rentals%20by%20weekdays.jpg)
+
 4. Avg. ride duration across weekdays
 ```{r}
 # Prepare the data: calculate average duration by customer type and weekday
@@ -215,6 +218,10 @@ ggplot(avg_duration_by_weekday, aes(x = factor(day_of_ride, levels = c("Mon", "T
   geom_text(aes(label = avg_duration), position = position_dodge(width = 0.7), vjust = -0.3, size = 3)  # Show average duration above bars
 
 ```
+![Visual 4](https://github.com/ItsAmitBhaskar/TheCyclistProject/blob/main/Plots/Ride%20duration%20by%20weekdays.jpg)
+
+
+
 5. Usage across hours in a day
 ```{r}
    # Ensure 'started_at' is in the correct datetime format
@@ -242,6 +249,11 @@ ggplot(ride_count_by_time, aes(x = as.numeric(hour_of_day), y = ride_count, colo
   scale_y_continuous(labels = function(x) format(x, scientific = FALSE)) +  # Prevent scientific notation on y-axis
   theme_minimal()
 ```
+![Visual 5](https://github.com/ItsAmitBhaskar/TheCyclistProject/blob/main/Plots/Ride%20counts%20by%20time%20of%20day.jpg) 
+
+
+
+
 6. Number of rentals by bike type
 ```{r}
    ggplot(data = Trips2024, aes(x = bike_type, fill = customer_type)) +
@@ -260,3 +272,4 @@ ggplot(ride_count_by_time, aes(x = as.numeric(hour_of_day), y = ride_count, colo
   ) +
   theme_minimal()
 ```
+![Visual 6](https://github.com/ItsAmitBhaskar/TheCyclistProject/blob/main/Plots/Ride%20counts%20by%20bike%20types.jpg)
