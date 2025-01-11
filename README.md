@@ -1,4 +1,4 @@
-# The Cyclistic Project
+# Cyclistic Bike Share Analysis
 
 ## About Me
 Welcome to the Cyclistic bike-share analysis case study! My name is Amit Bhaskar. I am from India. At the time of completing this project (Dec 2024) I am working as an operations manager in an ed tech company. I have been self learning the core principles, techniques and tech stack of data analysis for 4 months now and this project officially is a capstone project of Google's data analysis professional certificate on Coursera.
