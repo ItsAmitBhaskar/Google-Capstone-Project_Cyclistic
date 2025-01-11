@@ -31,9 +31,13 @@ The busiest time of the day for both members and casual riders was after lunch, 
 ---
 ### 6. Count of rides by bike type
 ![Visual 6](https://github.com/ItsAmitBhaskar/TheCyclistProject/blob/main/Plots/Ride%20counts%20by%20bike%20types.jpg)
+Here we see, electric-bikes outperforming classic-bikes and emerging as the most popular choice by both types of customers. Electric scooters on the other hand show least usage. But we need to be mindful of certain caveats before taking anything out of this plot. Caveats being:
+1. We have no information on the availability of bikes at the stations. It might be possible that there are more of one type of bike than others which is causing a kind of forced usage.
+2. Bike usage might also be getting affected by the pricing of bikes. In the absence of pricing details, it is hard to reach any conclusion about the reasons behind the exceptionally low usage of electric scooters.
+3. The release time of bikes might also be a factor.. Bike types that have been traditionally available are bound to be used more as compared to very recently released electric bikes or scooters.
 
 ---
-In a nutshell,
+## Conclusions:
 How Members differ from Casual riders is that they ride more during the week but for short durations
 How causals differ from members is that they ride more during the weekend and on an average ride for longer duration every day of the week.
 Similarity between the two is: both ride more in summers while ride demand fall in winters. Also both have similar start and return times.
